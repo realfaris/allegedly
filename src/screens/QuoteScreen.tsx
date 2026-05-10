@@ -24,11 +24,14 @@ import {
   Pressable,
   AppState,
   ViewToken,
+  Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { captureRef } from 'react-native-view-shot';
+import * as Sharing from 'expo-sharing';
 
 import { loadPrefs, toggleFavorite as persistToggleFavorite } from '../storage/prefs';
 import type { Prefs, Quote } from '../types';
@@ -44,6 +47,7 @@ import {
   type Palette,
 } from '../theme/palettes';
 import { QuoteBackground } from '../components/QuoteBackground';
+import { ShareCard, SHARE_SIZE } from '../components/ShareCard';
 import { type as typeScale } from '../theme/typography';
 import { space } from '../theme/spacing';
 import type { RootStackParamList } from '../navigation/RootNavigator';
@@ -72,6 +76,8 @@ export function QuoteScreen() {
   const [favorites, setFavorites] = useState<string[]>([]);
 
   const listRef = useRef<FlatList<Quote>>(null);
+  const shareCardRef = useRef<View>(null);
+  const [isSharing, setIsSharing] = useState(false);
 
   const recompute = useCallback(async () => {
     const p = await loadPrefs();
@@ -183,6 +189,41 @@ export function QuoteScreen() {
     setFavorites(next);
   };
 
+  const onSharePress = async () => {
+    if (isSharing || !shareCardRef.current) return;
+    setIsSharing(true);
+    try {
+      const uri = await captureRef(shareCardRef.current, {
+        format: 'png',
+        quality: 1,
+        result: 'tmpfile',
+        width: SHARE_SIZE,
+        height: SHARE_SIZE,
+      });
+      const available = await Sharing.isAvailableAsync();
+      if (!available) {
+        Alert.alert('Share unavailable', 'Sharing is not available on this device.');
+        return;
+      }
+      await Sharing.shareAsync(uri, {
+        mimeType: 'image/png',
+        UTI: 'public.png',
+        dialogTitle: 'Share quote',
+      });
+    } catch (e) {
+      // captureRef can throw if the view isn't laid out yet; show a soft error.
+      // Don't crash the screen.
+      // eslint-disable-next-line no-console
+      console.warn('[share] capture/share failed', e);
+      Alert.alert(
+        'Could not share',
+        'Something went wrong creating the image. Try again in a moment.',
+      );
+    } finally {
+      setIsSharing(false);
+    }
+  };
+
   return (
     <QuoteBackground palette={palette}>
       <StatusBar style={isDarkTopStop(palette) ? 'light' : 'dark'} />
@@ -200,10 +241,34 @@ export function QuoteScreen() {
             )}
           </View>
           <Pressable
+            onPress={onSharePress}
+            hitSlop={12}
+            disabled={isSharing}
+            style={({ pressed }) => [
+              styles.topAction,
+              { opacity: isSharing ? 0.4 : pressed ? 0.6 : 0.85 },
+            ]}
+            accessibilityRole="button"
+            accessibilityLabel="Share quote"
+          >
+            <Text
+              style={[
+                typeScale.caption,
+                {
+                  color: palette.textMuted,
+                  letterSpacing: 1.2,
+                  textTransform: 'uppercase',
+                },
+              ]}
+            >
+              {isSharing ? 'Sharing…' : 'Share'}
+            </Text>
+          </Pressable>
+          <Pressable
             onPress={() => navigation.navigate('Settings')}
             hitSlop={12}
             style={({ pressed }) => [
-              styles.settingsButton,
+              styles.topAction,
               { opacity: pressed ? 0.6 : 0.85 },
             ]}
             accessibilityRole="button"
@@ -314,6 +379,10 @@ export function QuoteScreen() {
           </View>
         </>
       )}
+
+      {/* Off-screen share card. Rendered always so capture is instant on
+          press. Visible quote drives its content. */}
+      <ShareCard ref={shareCardRef} quote={visibleQuote} palette={palette} />
     </QuoteBackground>
   );
 }
@@ -336,7 +405,7 @@ const styles = StyleSheet.create({
   greetingArea: {
     flex: 1,
   },
-  settingsButton: {
+  topAction: {
     paddingHorizontal: space.sm,
     paddingVertical: space.xs,
   },
