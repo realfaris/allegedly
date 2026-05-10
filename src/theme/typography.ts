@@ -1,13 +1,13 @@
 // Type scale.
 //
-// v1 ships with system fonts (San Francisco on iOS, Roboto on Android) for
-// onboarding and chrome. The signature serif for the actual quote display
-// gets locked in during Phase 4 and only applies to QuoteScreen — the
-// onboarding chrome stays system-font on purpose so the brand reveal lands
-// when the first quote appears.
+// Chrome (onboarding, settings, favorites) uses system fonts (San Francisco
+// on iOS, Roboto on Android) — neutral, native, fast.
 //
-// `quote` and `byline` styles are placeholders here; Phase 4 swaps the
-// fontFamily to the chosen serif and tunes the optical scale.
+// The signature serif is **EB Garamond** (Phase 4 lock-in). It's used for
+// the quote display, byline, and greeting on QuoteScreen — i.e. the brand
+// surfaces the user actually shares. Loaded at app boot via expo-google-fonts
+// in App.tsx; if the font hasn't loaded yet, fontFamily falls back to the
+// platform serif so we never render with undefined font.
 
 import { Platform, TextStyle } from 'react-native';
 
@@ -17,15 +17,16 @@ const systemFamily = Platform.select({
   default: 'System',
 });
 
-const systemSerifFamily = Platform.select({
-  // Phase 4 will replace these with @expo-google-fonts loaded family.
-  ios: 'Georgia',
-  android: 'serif',
-  default: 'Georgia',
-});
+// EB Garamond family names match @expo-google-fonts/eb-garamond exports.
+// If a weight isn't loaded yet, RN falls through to the platform serif.
+export const fontFamily = {
+  serifRegular: 'EBGaramond_400Regular',
+  serifMedium: 'EBGaramond_500Medium',
+  serifItalic: 'EBGaramond_400Regular_Italic',
+} as const;
 
 export const type = {
-  // Onboarding + chrome
+  // Onboarding + chrome (system font)
   display: {
     fontFamily: systemFamily,
     fontSize: 32,
@@ -55,23 +56,22 @@ export const type = {
     letterSpacing: 0.2,
   } as TextStyle,
 
-  // Quote screen — placeholders, Phase 4 finalizes
+  // Quote screen — EB Garamond, the brand surface
   quote: {
-    fontFamily: systemSerifFamily,
+    fontFamily: fontFamily.serifRegular,
     fontSize: 30,
-    fontWeight: '400',
-    lineHeight: 40,
+    lineHeight: 42,
+    letterSpacing: 0.2,
   } as TextStyle,
   byline: {
-    fontFamily: systemSerifFamily,
-    fontSize: 14,
-    fontWeight: '400',
-    fontStyle: 'italic',
+    fontFamily: fontFamily.serifItalic,
+    fontSize: 15,
+    letterSpacing: 0.4,
   } as TextStyle,
   greeting: {
-    fontFamily: systemFamily,
-    fontSize: 15,
-    fontWeight: '500',
-    letterSpacing: 0.3,
+    fontFamily: fontFamily.serifMedium,
+    fontSize: 14,
+    letterSpacing: 1.5,
+    textTransform: 'uppercase',
   } as TextStyle,
 } as const;
