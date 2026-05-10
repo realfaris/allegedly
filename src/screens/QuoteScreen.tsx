@@ -174,14 +174,13 @@ export function QuoteScreen() {
   });
 
   const onHeartPress = async () => {
+    // Persist + update local favorites state for instant heart feedback.
+    // Intentionally do NOT rebuild the deck here — that would scramble
+    // the cards under the user's finger. The boost takes effect on the
+    // next mount / focus / boundary crossing (recompute() is called in
+    // those flows).
     const next = await persistToggleFavorite(visibleQuote.id);
     setFavorites(next);
-    // Re-derive deck so the boost takes effect on next view. We don't
-    // re-snap the scroll position — the user keeps their visual context.
-    const p = await loadPrefs();
-    setPrefs(p);
-    const state = getRotationState(p);
-    setRotation(state);
   };
 
   return (

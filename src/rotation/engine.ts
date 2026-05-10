@@ -47,22 +47,33 @@ export function buildDeck(
   const base = filterStubs(getQuotesForCategory(category));
   if (base.length === 0) return base;
 
-  // Boost: each favorite that lives in this category gets duplicated in
-  // the input pool. After shuffle they're more likely to land near the
-  // top of the deck, but not guaranteed — that's the "boost not pin"
-  // semantics from PLAN.
+  // Boost: each favorite in this category is added a second time to the
+  // input pool. After shuffle their first occurrence trends toward the
+  // start of the deck (biasing without pinning). We then dedupe the
+  // shuffled output by id so the rendered deck contains each quote once
+  // — both for FlatList key uniqueness and so swiping never repeats the
+  // same quote in a row.
   const boost: Quote[] = [];
   for (const id of favorites) {
     const q = getQuoteById(id);
     if (q && q.category === category) boost.push(q);
   }
 
-  // De-duplicate within the boosted set (deck.length still gives unique
-  // count for cursor wraparound).
   const pool = [...base, ...boost];
-
   const seed = `deck:${category}:fav:${[...favorites].sort().join(',')}`;
-  return seededShuffle(pool, seed);
+  const shuffled = seededShuffle(pool, seed);
+
+  // Keep the first occurrence of each id. Favorites tend to appear
+  // earlier because they have two chances; dedupe preserves that bias.
+  const seen = new Set<string>();
+  const dedup: Quote[] = [];
+  for (const q of shuffled) {
+    if (!seen.has(q.id)) {
+      seen.add(q.id);
+      dedup.push(q);
+    }
+  }
+  return dedup;
 }
 
 export interface RotationState {
