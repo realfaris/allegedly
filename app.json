@@ -13,9 +13,16 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.realfaris.allegedly",
+      "entitlements": {
+        "com.apple.security.application-groups": [
+          "group.com.realfaris.allegedly"
+        ]
+      }
     },
     "android": {
+      "package": "com.realfaris.allegedly",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -27,7 +34,8 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-font"
+      "expo-font",
+      "@bacons/apple-targets"
     ]
   }
 }
