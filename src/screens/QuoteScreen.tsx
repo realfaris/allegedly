@@ -297,6 +297,23 @@ export function QuoteScreen() {
           </Pressable>
         </View>
       </SafeAreaView>
+
+      {/* Swipe hints — pointerEvents none so they don't eat the gesture.
+          Only render when the deck has more than one quote. */}
+      {rotation.deck.length > 1 && (
+        <>
+          <View pointerEvents="none" style={styles.hintLeft}>
+            <Text style={[styles.hintGlyph, { color: palette.textMuted }]}>
+              ‹
+            </Text>
+          </View>
+          <View pointerEvents="none" style={styles.hintRight}>
+            <Text style={[styles.hintGlyph, { color: palette.textMuted }]}>
+              ›
+            </Text>
+          </View>
+        </>
+      )}
     </QuoteBackground>
   );
 }
@@ -343,5 +360,26 @@ const styles = StyleSheet.create({
   heartGlyph: {
     fontSize: 30,
     lineHeight: 32,
+  },
+  hintLeft: {
+    position: 'absolute',
+    left: 4,
+    top: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    opacity: 0.4,
+  },
+  hintRight: {
+    position: 'absolute',
+    right: 4,
+    top: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    opacity: 0.4,
+  },
+  hintGlyph: {
+    fontSize: 36,
+    lineHeight: 36,
+    fontWeight: '300',
   },
 });
