@@ -16,26 +16,44 @@ interface Props {
   onChange: (v: Category[]) => void;
 }
 
-const LABELS: Record<Category, { label: string; blurb: string }> = {
+// Each category gets a hand-picked example so the user feels the vibe
+// before committing. These are editorial picks — not pulled randomly from
+// the pack — so each category leads with its strongest representative.
+const LABELS: Record<
+  Category,
+  { label: string; blurb: string; example: string; exampleAuthor: string }
+> = {
   motivational: {
     label: 'Motivational',
     blurb: 'Sincere — Emerson, Roosevelt, Keller',
+    example: 'Hitch your wagon to a star.',
+    exampleAuthor: 'Emerson',
   },
   anti_motivational: {
     label: 'Anti-motivational',
     blurb: 'Original. Cynical. Allegedly.',
+    example:
+      'Behind every dead body on Mount Everest was once a highly motivated individual.',
+    exampleAuthor: 'Allegedly',
   },
   dumb: {
     label: 'Dumb',
     blurb: 'Shitposts and second-mouse energy',
+    example:
+      'The early bird gets the worm, but the second mouse gets the cheese.',
+    exampleAuthor: 'Allegedly',
   },
   funny: {
     label: 'Funny',
     blurb: 'Twain, Wilde, Bierce',
+    example: 'I have never let my schooling interfere with my education.',
+    exampleAuthor: 'Twain',
   },
   stoic: {
     label: 'Stoic',
     blurb: 'Aurelius, Seneca, Epictetus',
+    example: 'Confine yourself to the present.',
+    exampleAuthor: 'Aurelius',
   },
 };
 
@@ -98,6 +116,29 @@ export function CategoryStep({ value, onChange }: Props) {
               >
                 {LABELS[cat].blurb}
               </Text>
+              <Text
+                style={[
+                  styles.example,
+                  {
+                    color: selected ? c.accentText : c.text,
+                    opacity: selected ? 0.95 : 0.85,
+                  },
+                ]}
+              >
+                “{LABELS[cat].example}”
+              </Text>
+              <Text
+                style={[
+                  typeScale.caption,
+                  styles.exampleAuthor,
+                  {
+                    color: selected ? c.accentText : c.textMuted,
+                    opacity: selected ? 0.8 : 0.7,
+                  },
+                ]}
+              >
+                — {LABELS[cat].exampleAuthor}
+              </Text>
             </Pressable>
           );
         })}
@@ -112,5 +153,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: space.md,
     borderRadius: radius.md,
     borderWidth: 1,
+  },
+  example: {
+    marginTop: space.sm,
+    fontSize: 15,
+    lineHeight: 21,
+    fontStyle: 'italic',
+  },
+  exampleAuthor: {
+    marginTop: space.xs,
   },
 });
