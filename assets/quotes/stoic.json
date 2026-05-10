@@ -1,0 +1,82 @@
+[
+  {
+    "id": "stoic-001",
+    "text": "Waste no more time arguing about what a good man should be. Be one.",
+    "author": "Marcus Aurelius",
+    "source": "Meditations, Book X (trans. George Long, 1862)",
+    "public_domain": true,
+    "category": "stoic"
+  },
+  {
+    "id": "stoic-002",
+    "text": "The happiness of your life depends upon the quality of your thoughts.",
+    "author": "Marcus Aurelius",
+    "source": "Meditations (trans. George Long, 1862)",
+    "public_domain": true,
+    "category": "stoic"
+  },
+  {
+    "id": "stoic-003",
+    "text": "Confine yourself to the present.",
+    "author": "Marcus Aurelius",
+    "source": "Meditations, Book VII (trans. George Long, 1862)",
+    "public_domain": true,
+    "category": "stoic"
+  },
+  {
+    "id": "stoic-004",
+    "text": "The best revenge is not to be like your enemy.",
+    "author": "Marcus Aurelius",
+    "source": "Meditations, Book VI (trans. George Long, 1862)",
+    "public_domain": true,
+    "category": "stoic"
+  },
+  {
+    "id": "stoic-005",
+    "text": "It is not that we have a short time to live, but that we waste a lot of it.",
+    "author": "Seneca",
+    "source": "On the Shortness of Life (trans. John W. Basore, 1932; older PD trans. available)",
+    "public_domain": true,
+    "category": "stoic"
+  },
+  {
+    "id": "stoic-006",
+    "text": "We suffer more often in imagination than in reality.",
+    "author": "Seneca",
+    "source": "Letters from a Stoic, Letter XIII (trans. Richard Mott Gummere, 1917-25)",
+    "public_domain": true,
+    "category": "stoic"
+  },
+  {
+    "id": "stoic-007",
+    "text": "Men are disturbed not by the things which happen, but by the opinions about the things.",
+    "author": "Epictetus",
+    "source": "Enchiridion, V (trans. Elizabeth Carter, 1758)",
+    "public_domain": true,
+    "category": "stoic"
+  },
+  {
+    "id": "stoic-008",
+    "text": "Wealth consists not in having great possessions, but in having few wants.",
+    "author": "Epictetus",
+    "source": "attributed; Discourses (trans. Elizabeth Carter, 1758)",
+    "public_domain": true,
+    "category": "stoic"
+  },
+  {
+    "id": "stoic-009",
+    "text": "First say to yourself what you would be; and then do what you have to do.",
+    "author": "Epictetus",
+    "source": "Discourses, Book III (trans. Elizabeth Carter, 1758)",
+    "public_domain": true,
+    "category": "stoic"
+  },
+  {
+    "id": "stoic-010",
+    "text": "Look well into thyself; there is a source of strength which will always spring up if thou wilt always look.",
+    "author": "Marcus Aurelius",
+    "source": "Meditations, Book VII (trans. George Long, 1862)",
+    "public_domain": true,
+    "category": "stoic"
+  }
+]

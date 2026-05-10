@@ -1,0 +1,82 @@
+[
+  {
+    "id": "funny-001",
+    "text": "Whenever you find yourself on the side of the majority, it is time to pause and reflect.",
+    "author": "Mark Twain",
+    "source": "Notebook (1904)",
+    "public_domain": true,
+    "category": "funny"
+  },
+  {
+    "id": "funny-002",
+    "text": "Get your facts first, then you can distort them as you please.",
+    "author": "Mark Twain",
+    "source": "attributed; Rudyard Kipling, From Sea to Sea (1899)",
+    "public_domain": true,
+    "category": "funny"
+  },
+  {
+    "id": "funny-003",
+    "text": "I have never let my schooling interfere with my education.",
+    "author": "Mark Twain",
+    "source": "attributed",
+    "public_domain": true,
+    "category": "funny"
+  },
+  {
+    "id": "funny-004",
+    "text": "I can resist everything except temptation.",
+    "author": "Oscar Wilde",
+    "source": "Lady Windermere's Fan (1892)",
+    "public_domain": true,
+    "category": "funny"
+  },
+  {
+    "id": "funny-005",
+    "text": "We are all in the gutter, but some of us are looking at the stars.",
+    "author": "Oscar Wilde",
+    "source": "Lady Windermere's Fan (1892)",
+    "public_domain": true,
+    "category": "funny"
+  },
+  {
+    "id": "funny-006",
+    "text": "Speak when you are angry and you will make the best speech you will ever regret.",
+    "author": "Ambrose Bierce",
+    "source": "The Devil's Dictionary (1911)",
+    "public_domain": true,
+    "category": "funny"
+  },
+  {
+    "id": "funny-007",
+    "text": "Three may keep a secret, if two of them are dead.",
+    "author": "Benjamin Franklin",
+    "source": "Poor Richard's Almanack (1735)",
+    "public_domain": true,
+    "category": "funny"
+  },
+  {
+    "id": "funny-008",
+    "text": "The reports of my death have been greatly exaggerated.",
+    "author": "Mark Twain",
+    "source": "letter to the New York Journal (1897)",
+    "public_domain": true,
+    "category": "funny"
+  },
+  {
+    "id": "funny-009",
+    "text": "Always forgive your enemies; nothing annoys them so much.",
+    "author": "Oscar Wilde",
+    "source": "attributed",
+    "public_domain": true,
+    "category": "funny"
+  },
+  {
+    "id": "funny-010",
+    "text": "Common sense is not so common.",
+    "author": "Voltaire",
+    "source": "Dictionnaire philosophique (1764)",
+    "public_domain": true,
+    "category": "funny"
+  }
+]
